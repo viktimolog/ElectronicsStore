@@ -6,14 +6,18 @@ import {
     Form,
     Item,
     Input,
-    View
+    View,
+    Picker
 } from 'native-base';
+
+//TODO
 
 export default class AddReviewForm extends Component {
   constructor(props) {
       super(props);
       this.state = {
-          text: null
+          text: null,
+          picker: 1
       }
   }
     textHandler = val => {
@@ -22,21 +26,38 @@ export default class AddReviewForm extends Component {
         })
     }
 
-handlerAddReview =() => {
+handlerAddReview = () => {
 //this.props.addReview(this.state.text);
 }
 
-    getLoginForm = () => {
-        if (!this.props.authorization)
+onValueChangePicker = val => {
+  this.setState({
+    picker: val
+  });
+}
+
+    getAddReviewForm = () => {
+        if (this.props.authorization)//TODO   if (this.props.authorization)
             return (
                 <Form>
-                    <Item>
-                        <Input
-                            placeholder='Add text'
-                            onChangeText={this.textHandler}
-                            value={this.state.text}
-                        />
-                    </Item>
+                    <Input
+                        placeholder='Add text'
+                        onChangeText={this.textHandler}
+                        value={this.state.text}
+                        style={styles.input}
+                    />
+                    <Picker
+                    mode='dropdown'
+                    selectedValue={this.state.picker}
+                    onValueChange={this.onValueChangePicker}
+                    style={styles.picker}
+                    >
+                    <Picker.Item label='1' value='1' />
+                    <Picker.Item label='2' value='2' />
+                    <Picker.Item label='3' value='3' />
+                    <Picker.Item label='4' value='4' />
+                    <Picker.Item label='5' value='5' />
+                    </Picker>
                     <View style={styles.container}>
                         <Button
                             onPress={this.handlerAddReview}>
@@ -45,17 +66,12 @@ handlerAddReview =() => {
                     </View>
                 </Form>
             );
-
-        if (this.state.authorization)
-            return (
-                <Text>{`Logged as ${this.state.login}`}</Text>
-            );
     }
 
     render() {
         return (
             <View>
-                {this.getLoginForm()}
+                {this.getAddReviewForm()}
             </View>
         );
     }
@@ -70,10 +86,18 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         flexDirection: 'row',
         height: 72,
         borderWidth: 0.5,
         borderColor: 'lightgray'
     },
+    input: {
+    borderWidth: 1,
+    borderColor: 'blue',
+    height: 72
+  },
+  picker: {
+  width: 100
+}
 });

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {ScrollView, View} from 'react-native';
 import Product from './Product';
+import AddReviewForm from './AddReviewForm';
 import Review from './Review';
 
 export default class ProductDetails extends Component {
@@ -16,6 +17,10 @@ export default class ProductDetails extends Component {
                     <Product
                         product={this.props.currentProduct}
                         key={this.props.currentProduct.id}
+                    />
+                    <AddReviewForm
+                    authorization={this.props.authorization}
+
                     />
                     <ScrollView>
                         {
