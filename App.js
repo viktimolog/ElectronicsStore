@@ -54,7 +54,20 @@ export default class ElectronicsStore extends Component {
             });
     }
 
-    onLoginHandler = () => {
+    logOut=()=>{
+      this.setState({
+          authorization: false
+      });
+    }
+
+    onLoginHandler = (login, password) => {
+      login = login.trim();
+      password = password.trim();
+      if (login === '' || password === '') {
+          alert('Fill both fields, please!');
+          return;
+        }
+
         this.setState({
 //TODO
             authorization: true
@@ -94,6 +107,7 @@ export default class ElectronicsStore extends Component {
                         authorization={this.state.authorization}
                         onLoginHandler={this.onLoginHandler}
                         onRegisterHandler={this.onRegisterHandler}
+                        logOut={this.logOut}
                     />
                     <ProductsList
                         authorization={this.state.authorization}

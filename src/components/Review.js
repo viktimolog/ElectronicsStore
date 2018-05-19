@@ -12,6 +12,7 @@ export default class Review extends Component {
     }
 
     render() {
+const rate = `Rate: ${this.props.review.rate}`;
         return (
             <View style={styles.container}>
                 <View>
@@ -20,10 +21,9 @@ export default class Review extends Component {
                 </View>
                 <View style={styles.textRight}>
                     <Text style={styles.text}>{this.props.review.created_at}</Text>
-                    <Text style={styles.text}>{this.props.review.rate}</Text>
+                    <Text style={styles.text}>{rate}</Text>
                 </View>
             </View>
-
         );
     }
 }

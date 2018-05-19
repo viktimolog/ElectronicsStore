@@ -8,14 +8,14 @@ import {
     Input,
     View
 } from 'native-base';
-import {login, reg} from '../constants';
+import {login, reg, logout} from '../constants';
 
 export default class Loginform extends Component {
   constructor(props) {
       super(props);
       this.state = {
-          login: null,
-          password: null
+          login: '',
+          password: ''
       }
   }
 
@@ -31,6 +31,18 @@ export default class Loginform extends Component {
         })
     }
 
+    loginHandler=()=>{
+      this.props.onLoginHandler(this.state.login, this.state.password);
+    }
+
+    logOuthandler=()=>{
+      this.setState({
+          password: '',
+          login: ''
+      })
+        this.props.logOut();
+    }
+
     getLoginForm = () => {
         if (!this.props.authorization)
             return (
@@ -39,18 +51,18 @@ export default class Loginform extends Component {
                         <Input
                             placeholder='Login'
                             onChangeText={this.loginTextHandler}
-                            value={this.props.login}
+                            value={this.state.login}
                         />
                     </Item>
                     <Item last>
                         <Input placeholder='Password'
                                onChangeText={this.passwordTextHandler}
-                               value={this.props.password}
+                               value={this.state.password}
                         />
                     </Item>
                     <View style={styles.container}>
                         <Button
-                            onPress={this.onLoginHandler}>
+                            onPress={this.loginHandler}>
                             <Text>{login}</Text>
                         </Button>
                         <Button
@@ -61,9 +73,15 @@ export default class Loginform extends Component {
                 </Form>
             );
 
-        if (this.state.authorization)
+        if (this.props.authorization)
             return (
-                <Text>{`Logged as ${this.state.login}`}</Text>
+              <View style={styles.container}>
+                <Text style={{ color: 'red', fontSize: 18}}>{`Logged as ${this.state.login}`}</Text>
+                <Button
+                    onPress={this.logOuthandler}>
+                    <Text>{logout}</Text>
+                </Button>
+              </View>
             );
     }
 

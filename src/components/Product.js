@@ -6,6 +6,7 @@ import {
     View,
     TouchableOpacity
 } from 'react-native';
+import Urls from '../constants/Urls';
 
 export default class Product extends Component {
 
@@ -14,7 +15,7 @@ export default class Product extends Component {
     }
 
     render() {
-        const uriImg = 'http://smktesting.herokuapp.com/static/' + this.props.product.img;
+        const uriImg = Urls.images + this.props.product.img;
 
         return (
             <TouchableOpacity onPress={this.handleSelectedProduct}>

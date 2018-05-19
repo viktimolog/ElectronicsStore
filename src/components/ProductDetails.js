@@ -7,7 +7,7 @@ import Review from './Review';
 export default class ProductDetails extends Component {
 
     handleSelectedProduct = () => {
-        this.props.selectedProduct(this.props.product);
+        this.props.selectedProduct(this.props.currentProduct);
     }
 
     getProduct = () => {
@@ -20,7 +20,6 @@ export default class ProductDetails extends Component {
                     />
                     <AddReviewForm
                     authorization={this.props.authorization}
-
                     />
                     <ScrollView>
                         {

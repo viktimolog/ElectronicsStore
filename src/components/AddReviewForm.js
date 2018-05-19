@@ -66,6 +66,12 @@ onValueChangePicker = val => {
                     </View>
                 </Form>
             );
+  if (!this.props.authorization)
+      return (
+        <View style={styles.container}>
+        <Text style={{ color: 'red', fontSize: 18}}>Please login for add your review.</Text>
+        </View>
+            );
     }
 
     render() {
@@ -90,7 +96,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 72,
         borderWidth: 0.5,
-        borderColor: 'lightgray'
+        borderColor: 'black'
     },
     input: {
     borderWidth: 1,
