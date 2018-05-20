@@ -23,7 +23,7 @@ export default class Product extends Component {
                         <Text style={styles.text}>{this.props.product.title}</Text>
                         <Image
                             source={{uri: uriImg}}
-                            style={{width: 72, height: 72}}/>
+                            style={{width: 100, height: 85}}/>
                     </View>
                     <View style={{paddingLeft: 50}}>
                         <Text style={styles.text}>Description: </Text>

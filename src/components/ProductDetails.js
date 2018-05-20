@@ -22,7 +22,7 @@ export default class ProductDetails extends Component {
                                 source={{
                                     uri: Urls.images + this.props.product.img
                                 }}
-                                style={{width: 216, height: 216}}/>
+                                style={{width: 250, height: 220}}/>
                         </View>
                         <View>
                             <Text style={styles.text}>
