@@ -31,11 +31,11 @@ export default class Loginform extends Component {
         })
     }
 
-    loginHandler=()=>{
+    loginHandler = () => {
       this.props.onLoginHandler(this.state.login, this.state.password);
     }
 
-    logOuthandler=()=>{
+    logOuthandler = () => {
       this.setState({
           password: '',
           login: ''
@@ -76,7 +76,9 @@ export default class Loginform extends Component {
         if (this.props.authorization)
             return (
               <View style={styles.container}>
-                <Text style={{ color: 'red', fontSize: 18}}>{`Logged as ${this.state.login}`}</Text>
+                <Text style={{ color: 'red', fontSize: 18}}>
+                    {`Logged as ${this.state.login}`}
+                </Text>
                 <Button
                     onPress={this.logOuthandler}>
                     <Text>{logout}</Text>

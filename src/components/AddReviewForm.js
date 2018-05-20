@@ -69,7 +69,9 @@ onValueChangePicker = val => {
   if (!this.props.authorization)
       return (
         <View style={styles.container}>
-        <Text style={{ color: 'red', fontSize: 18}}>Please login for add your review.</Text>
+        <Text style={{ color: 'red', fontSize: 18}}>
+            Please login for add your review.
+        </Text>
         </View>
             );
     }

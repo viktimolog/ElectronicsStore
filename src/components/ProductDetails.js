@@ -1,23 +1,36 @@
 import React, {Component} from 'react';
-import {ScrollView, View} from 'react-native';
-import Product from './Product';
+import {
+    StyleSheet,
+    Image,
+    Text,
+    View,
+    ScrollView
+} from 'react-native';
 import AddReviewForm from './AddReviewForm';
 import Review from './Review';
+import Urls from '../constants/Urls';
 
 export default class ProductDetails extends Component {
 
-    handleSelectedProduct = () => {
-        this.props.selectedProduct(this.props.currentProduct);
-    }
-
     getProduct = () => {
-        if (this.props.currentProduct)
+        if (this.props.product)
             return (
                 <View>
-                    <Product
-                        product={this.props.currentProduct}
-                        key={this.props.currentProduct.id}
-                    />
+                <View style={styles.container}>
+                    <View style={styles.imageContainer}>
+                        <Text style={styles.text}>{this.props.product.title}</Text>
+                        <Image
+                            source={{
+                                uri: Urls.images + this.props.product.img
+                            }}
+                            style={{width: 216, height: 216}}/>
+                    </View>
+                    <View>
+                        <Text style={styles.text}>
+                              {`Description: ${this.props.product.text}`}
+                        </Text>
+                    </View>
+                </View>
                     <AddReviewForm
                     authorization={this.props.authorization}
                     />
@@ -43,3 +56,22 @@ export default class ProductDetails extends Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        paddingLeft: 10,
+        paddingRight: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        borderBottomWidth: 1
+    },
+    text: {
+        fontSize: 16,
+        color: 'black'
+    },
+    imageContainer:{
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    }
+});

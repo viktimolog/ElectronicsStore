@@ -118,7 +118,7 @@ export default class ElectronicsStore extends Component {
                     <ProductDetails
                         authorization={this.state.authorization}
                         previousScreen={this.previousScreen}
-                        currentProduct={this.state.currentProduct}
+                        product={this.state.currentProduct}
                         reviews={this.state.reviews}
                     />
                 </Content>
