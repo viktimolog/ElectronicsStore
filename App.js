@@ -29,6 +29,10 @@ export default class ElectronicsStore extends Component {
         }
     }
 
+    componentDidUpdate(){
+      // alert('componentDidUpdate');//TODO
+    }
+
     componentDidMount() {
         this.getData(Urls.products)
             .then(products => this.setState({products}));
@@ -61,47 +65,55 @@ export default class ElectronicsStore extends Component {
       });
     }
 
-  onLoginHandler = (username, password) => {
-      username = username.trim();
-      password = password.trim();
-      if (username === '' || password === '') {
-          alert('Fill both fields, please!');
-          return;
-        }
-        fetch(Urls.log, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({username, password})
-        })
+    addReview = (id, rate, text) => {
+      text = text.trim();
+  		if(text === '') {
+        alert('Fill the text field, please!');
+        return;
+  		}
+       fetch(Urls.reviews + id, {
+  				method: 'POST',
+  				headers: {
+  					'Content-Type': 'application/json',
+  					'Authorization': 'Token ' + this.state.token
+  				},
+  				body: JSON.stringify({rate, text})
+  			})
         .then(response => response.json())
         .then(responseObj => {
-          if(responseObj.success)
-          this.setState({
-          authorization: responseObj.success
-        })
-        else alert(responseObj.message);
-      }
+          //the server do not return review_id as in the task
+          if(responseObj.success){
+            alert('Congratulation, your review was added!');            
+            this.getData(Urls.reviews + this.state.currentProduct.id)
+                .then(reviews => {
+                    this.setState({reviews})
+                });
+          }
+          else alert('Sorry, the server has returned the error, your review was not added!');
+        }
       )
-    }
+  	}
 
-    onRegisterHandler = (username, password) => {
+  logReg = (url, username, password) => {
       username = username.trim();
       password = password.trim();
       if (username === '' || password === '') {
           alert('Fill both fields, please!');
           return;
         }
-        fetch(Urls.reg, {
+        fetch(url, {
           method: 'POST',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify({username, password})
         })
         .then(response => response.json())
         .then(responseObj => {
-          if(responseObj.success)
+          if(responseObj.success){
           this.setState({
-          authorization: responseObj.success
+          authorization: responseObj.success,
+          token: responseObj.token
         })
+      }
         else alert(responseObj.message);
       }
       )
@@ -133,9 +145,8 @@ export default class ElectronicsStore extends Component {
                 <Content>
                     <LoginForm
                         authorization={this.state.authorization}
-                        onLoginHandler={this.onLoginHandler}
-                        onRegisterHandler={this.onRegisterHandler}
                         logOut={this.logOut}
+                        logReg={this.logReg}
                     />
                     <ProductsList
                         authorization={this.state.authorization}
@@ -148,6 +159,7 @@ export default class ElectronicsStore extends Component {
                         previousScreen={this.previousScreen}
                         product={this.state.currentProduct}
                         reviews={this.state.reviews}
+                        addReview={this.addReview}
                     />
                 </Content>
             </Container>

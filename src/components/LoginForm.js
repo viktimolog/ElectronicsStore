@@ -9,6 +9,7 @@ import {
     View
 } from 'native-base';
 import {login, reg, logout} from '../constants';
+import Urls from '../constants/Urls';
 
 export default class Loginform extends Component {
   constructor(props) {
@@ -32,12 +33,20 @@ export default class Loginform extends Component {
     }
 
     loginHandler = () => {
-      this.props.onLoginHandler(this.state.login, this.state.password);
+        this.props.logReg(
+          Urls.log,
+          this.state.login,
+          this.state.password
+        );
     }
 
     registerHandler = () => {
-      this.props.onRegisterHandler(this.state.login, this.state.password);
-    }
+        this.props.logReg(
+          Urls.reg,
+          this.state.login,
+          this.state.password
+        );
+  }
 
     logOuthandler = () => {
       this.setState({

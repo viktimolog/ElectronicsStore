@@ -33,10 +33,14 @@ export default class ProductDetails extends Component {
                 </View>
                     <AddReviewForm
                     authorization={this.props.authorization}
+                    addReview={this.props.addReview}
+                    id={this.props.product.id}
                     />
                     <ScrollView>
                         {
-                            this.props.reviews.map(review =>
+                            this.props.reviews
+                            .sort((a, b) => b.id - a.id)
+                            .map(review =>
                                 <Review
                                     review={review}
                                     key={review.id}

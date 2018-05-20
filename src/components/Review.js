@@ -12,7 +12,8 @@ export default class Review extends Component {
     }
 
     render() {
-const rate = `Rate: ${this.props.review.rate}`;
+      const rate = `Rate: ${this.props.review.rate}`;
+
         return (
             <View style={styles.container}>
                 <View>
