@@ -7,9 +7,9 @@ import {
     Content,
     Header,
     Title,
-    Left,
-    Icon
+    Left
 } from 'native-base';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import Urls from './src/constants/Urls';
 import LoginForm from './src/components/LoginForm';
 import ProductsList from './src/components/ProductsList';
@@ -22,8 +22,8 @@ export default class ElectronicsStore extends Component {
             products: [],
             currentProduct: null,
             authorization: false,
-            login: null,
-            password: null,
+            // login: null,
+            // password: null,
             reviews: [],
             token: null
         }
@@ -44,11 +44,9 @@ export default class ElectronicsStore extends Component {
     }
 
     previousScreen = () => {
-        this.setState({
-            currentProduct: null,
-            reviews: [],
-            // products:??? TODO
-        });
+        this.setState({currentProduct: null});
+        this.getData(Urls.products)
+            .then(products => this.setState({products}));
     }
 
     selectedProduct = product => {
@@ -83,7 +81,7 @@ export default class ElectronicsStore extends Component {
         .then(responseObj => {
           //the server do not return review_id as in the task
           if(responseObj.success){
-            alert('Congratulation, your review was added!');            
+            alert('Congratulation, your review was added!');
             this.getData(Urls.reviews + this.state.currentProduct.id)
                 .then(reviews => {
                     this.setState({reviews})
@@ -127,7 +125,11 @@ export default class ElectronicsStore extends Component {
                         transparent
                         onPress={() => this.previousScreen()}
                     >
-                        <Icon name='menu'/>
+                        <Icon
+                        name='angle-left'
+                        size={40}
+                        color='red'
+                        />
                     </Button>
                 </Left>
             );
@@ -156,7 +158,7 @@ export default class ElectronicsStore extends Component {
                     />
                     <ProductDetails
                         authorization={this.state.authorization}
-                        previousScreen={this.previousScreen}
+                        // previousScreen={this.previousScreen}
                         product={this.state.currentProduct}
                         reviews={this.state.reviews}
                         addReview={this.addReview}

@@ -24,7 +24,7 @@ export default class AddReviewForm extends Component {
   componentWillReceiveProps(){
     this.setState({
         text: '',
-        picker: 0
+        picker: '0'
     })
   }
 
@@ -49,7 +49,7 @@ onValueChangePicker = val => {
 }
 
     getAddReviewForm = () => {
-        if (this.props.authorization)//TODO   if (this.props.authorization)
+        if (this.props.authorization)
             return (
                 <Form>
                     <Input
@@ -119,6 +119,6 @@ const styles = StyleSheet.create({
     height: 72
   },
   picker: {
-  width: 100
+  width: 85
 }
 });
