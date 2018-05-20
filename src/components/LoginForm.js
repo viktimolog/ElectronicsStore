@@ -35,6 +35,10 @@ export default class Loginform extends Component {
       this.props.onLoginHandler(this.state.login, this.state.password);
     }
 
+    registerHandler = () => {
+      this.props.onRegisterHandler(this.state.login, this.state.password);
+    }
+
     logOuthandler = () => {
       this.setState({
           password: '',
@@ -66,7 +70,7 @@ export default class Loginform extends Component {
                             <Text>{login}</Text>
                         </Button>
                         <Button
-                            onPress={this.onRegisterHandler}>
+                            onPress={this.registerHandler}>
                             <Text>{reg}</Text>
                         </Button>
                     </View>

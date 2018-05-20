@@ -24,7 +24,8 @@ export default class ElectronicsStore extends Component {
             authorization: false,
             login: null,
             password: null,
-            reviews: []
+            reviews: [],
+            token: null
         }
     }
 
@@ -54,29 +55,56 @@ export default class ElectronicsStore extends Component {
             });
     }
 
-    logOut=()=>{
+    logOut = () => {
       this.setState({
           authorization: false
       });
     }
 
-    onLoginHandler = (login, password) => {
-      login = login.trim();
+  onLoginHandler = (username, password) => {
+      username = username.trim();
       password = password.trim();
-      if (login === '' || password === '') {
+      if (username === '' || password === '') {
           alert('Fill both fields, please!');
           return;
         }
-
-        this.setState({
-//TODO
-            authorization: true
-        });
+        fetch(Urls.log, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({username, password})
+        })
+        .then(response => response.json())
+        .then(responseObj => {
+          if(responseObj.success)
+          this.setState({
+          authorization: responseObj.success
+        })
+        else alert(responseObj.message);
+      }
+      )
     }
 
-    onRegisterHandler = () => {
-//TODO
-        this.onLoginHandler();
+    onRegisterHandler = (username, password) => {
+      username = username.trim();
+      password = password.trim();
+      if (username === '' || password === '') {
+          alert('Fill both fields, please!');
+          return;
+        }
+        fetch(Urls.reg, {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({username, password})
+        })
+        .then(response => response.json())
+        .then(responseObj => {
+          if(responseObj.success)
+          this.setState({
+          authorization: responseObj.success
+        })
+        else alert(responseObj.message);
+      }
+      )
     }
 
     getButtonBack = () => {
