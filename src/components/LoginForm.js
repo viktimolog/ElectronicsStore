@@ -90,7 +90,7 @@ export default class Loginform extends Component {
             return (
                 <View style={styles.container}>
                     <Text style={{color: 'red', fontSize: 18}}>
-                        {`Logged as ${this.state.login}`}
+                        {`Logged as ${this.props.userName}`}
                     </Text>
                     <Button
                         onPress={this.logOutHandler}>

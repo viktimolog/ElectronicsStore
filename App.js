@@ -26,7 +26,8 @@ export default class ElectronicsStore extends Component {
             authorization: false,
             reviews: [],
             token: null,
-            getData: true
+            getData: true,
+            userName:''
         }
     }
 
@@ -65,7 +66,8 @@ export default class ElectronicsStore extends Component {
 
     logOut = () => {
         this.setState({
-            authorization: false
+            authorization: false,
+            userName:''
         });
     }
 
@@ -124,7 +126,8 @@ export default class ElectronicsStore extends Component {
                         this.setState({
                             authorization: responseObj.success,
                             token: responseObj.token,
-                            getData: false
+                            getData: false,
+                            userName: username
                         })
                     }
                     else{
@@ -180,6 +183,7 @@ export default class ElectronicsStore extends Component {
                 <Content>
                     <LoginForm
                         authorization={this.state.authorization}
+                        userName={this.state.userName}
                         logOut={this.logOut}
                         logReg={this.logReg}
                     />
