@@ -7,10 +7,11 @@ import {
 
 export default class Review extends Component {
     render() {
-      const dateFormat = require('dateformat');
-      const userName = `${this.props.review.created_by.username} at ${dateFormat(this.props.review.created_at, "dddd, mmmm dS, yyyy, h:MM:ss TT")}`;
-      const rate = `Rate: ${this.props.review.rate}`;
-      const comment = `Comment: ${this.props.review.text}`;
+        const dateFormat = require('dateformat');
+        const userName = `${this.props.review.created_by.username} at ${dateFormat(this.props.review.created_at,
+            "dddd, mmmm dS, yyyy, h:MM:ss TT")}`;
+        const rate = `Rate: ${this.props.review.rate}`;
+        const comment = `Comment: ${this.props.review.text}`;
 
         return (
             <View style={styles.container}>

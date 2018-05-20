@@ -6,27 +6,31 @@ import {
     Form,
     Item,
     Input,
-    View,
-    Picker
+    View
 } from 'native-base';
-
-//TODO
+import StarRating from 'react-native-star-rating';
 
 export default class AddReviewForm extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-          text: '',
-          picker: 0
-      }
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            text: '',
+            starCount: 0
+        }
+    }
 
-  componentWillReceiveProps(){
-    this.setState({
-        text: '',
-        picker: '0'
-    })
-  }
+    componentWillReceiveProps() {
+        this.setState({
+            text: '',
+            starCount: 0
+        })
+    }
+
+    onStarRatingPress(rating) {
+        this.setState({
+            starCount: rating
+        });
+    }
 
     textHandler = val => {
         this.setState({
@@ -34,19 +38,16 @@ export default class AddReviewForm extends Component {
         })
     }
 
-addReviewHandler = () => {
-if(this.state.picker === '0'){
-  alert('Select rate, please!');
-  return;
-}
-this.props.addReview(this.props.id, this.state.picker, this.state.text);
-}
-
-onValueChangePicker = val => {
-  this.setState({
-    picker: val
-  });
-}
+    addReviewHandler = () => {
+        if (this.state.starCount === 0) {
+            alert('Select rate, please!');
+            return;
+        }
+        this.props.addReview(
+            this.props.id,
+            this.state.starCount,
+            this.state.text);
+    }
 
     getAddReviewForm = () => {
         if (this.props.authorization)
@@ -58,19 +59,13 @@ onValueChangePicker = val => {
                         value={this.state.text}
                         style={styles.input}
                     />
-                    <Picker
-                    mode='dropdown'
-                    selectedValue={this.state.picker}
-                    onValueChange={this.onValueChangePicker}
-                    style={styles.picker}
-                    >
-                    <Picker.Item label='rate: 0' value='0' />
-                    <Picker.Item label='rate: 1' value='1' />
-                    <Picker.Item label='rate: 2' value='2' />
-                    <Picker.Item label='rate: 3' value='3' />
-                    <Picker.Item label='rate: 4' value='4' />
-                    <Picker.Item label='rate: 5' value='5' />
-                    </Picker>
+                    <StarRating
+                        disabled={false}
+                        maxStars={5}
+                        rating={this.state.starCount}
+                        selectedStar={(rating) => this.onStarRatingPress(rating)}
+                        fullStarColor={'red'}
+                    />
                     <View style={styles.container}>
                         <Button
                             onPress={this.addReviewHandler}>
@@ -79,13 +74,13 @@ onValueChangePicker = val => {
                     </View>
                 </Form>
             );
-  if (!this.props.authorization)
-      return (
-        <View style={styles.container}>
-        <Text style={{color: 'red', fontSize: 18}}>
-            Please login for add your review.
-        </Text>
-        </View>
+        if (!this.props.authorization)
+            return (
+                <View style={styles.container}>
+                    <Text style={{color: 'red', fontSize: 18}}>
+                        Please login for add your review.
+                    </Text>
+                </View>
             );
     }
 
@@ -114,11 +109,9 @@ const styles = StyleSheet.create({
         borderColor: 'black'
     },
     input: {
-    borderWidth: 1,
-    borderColor: 'blue',
-    height: 72
-  },
-  picker: {
-  width: 85
-}
+        paddingLeft: 10,
+        borderWidth: 1,
+        borderColor: 'blue',
+        height: 72
+    }
 });

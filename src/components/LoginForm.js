@@ -12,13 +12,13 @@ import {login, reg, logout} from '../constants';
 import Urls from '../constants/Urls';
 
 export default class Loginform extends Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-          login: '',
-          password: ''
-      }
-  }
+    constructor(props) {
+        super(props);
+        this.state = {
+            login: '',
+            password: ''
+        }
+    }
 
     loginTextHandler = val => {
         this.setState({
@@ -34,25 +34,25 @@ export default class Loginform extends Component {
 
     loginHandler = () => {
         this.props.logReg(
-          Urls.log,
-          this.state.login,
-          this.state.password
+            Urls.log,
+            this.state.login,
+            this.state.password
         );
     }
 
     registerHandler = () => {
         this.props.logReg(
-          Urls.reg,
-          this.state.login,
-          this.state.password
+            Urls.reg,
+            this.state.login,
+            this.state.password
         );
-  }
+    }
 
-    logOuthandler = () => {
-      this.setState({
-          password: '',
-          login: ''
-      })
+    logOutHandler = () => {
+        this.setState({
+            password: '',
+            login: ''
+        })
         this.props.logOut();
     }
 
@@ -88,15 +88,15 @@ export default class Loginform extends Component {
 
         if (this.props.authorization)
             return (
-              <View style={styles.container}>
-                <Text style={{ color: 'red', fontSize: 18}}>
-                    {`Logged as ${this.state.login}`}
-                </Text>
-                <Button
-                    onPress={this.logOuthandler}>
-                    <Text>{logout}</Text>
-                </Button>
-              </View>
+                <View style={styles.container}>
+                    <Text style={{color: 'red', fontSize: 18}}>
+                        {`Logged as ${this.state.login}`}
+                    </Text>
+                    <Button
+                        onPress={this.logOutHandler}>
+                        <Text>{logout}</Text>
+                    </Button>
+                </View>
             );
     }
 
@@ -110,9 +110,6 @@ export default class Loginform extends Component {
 }
 
 const styles = StyleSheet.create({
-    textTitle: {
-        alignSelf: 'center'
-    },
     container: {
         flex: 1,
         paddingLeft: 20,
@@ -123,5 +120,5 @@ const styles = StyleSheet.create({
         height: 72,
         borderWidth: 0.5,
         borderColor: 'lightgray'
-    },
+    }
 });

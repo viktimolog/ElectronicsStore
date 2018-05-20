@@ -7,13 +7,15 @@ import {
     Content,
     Header,
     Title,
-    Left
+    Left,
+    Text
 } from 'native-base';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Urls from './src/constants/Urls';
 import LoginForm from './src/components/LoginForm';
 import ProductsList from './src/components/ProductsList';
 import ProductDetails from './src/components/ProductDetails';
+import Loader from './src/components/Loader';
 
 export default class ElectronicsStore extends Component {
     constructor(props) {
@@ -22,20 +24,18 @@ export default class ElectronicsStore extends Component {
             products: [],
             currentProduct: null,
             authorization: false,
-            // login: null,
-            // password: null,
             reviews: [],
-            token: null
+            token: null,
+            getData: true
         }
-    }
-
-    componentDidUpdate(){
-      // alert('componentDidUpdate');//TODO
     }
 
     componentDidMount() {
         this.getData(Urls.products)
-            .then(products => this.setState({products}));
+            .then(products => this.setState({
+                products,
+                getData: false
+            }));
     }
 
     getData = url => {
@@ -44,9 +44,15 @@ export default class ElectronicsStore extends Component {
     }
 
     previousScreen = () => {
-        this.setState({currentProduct: null});
+        this.setState({
+            currentProduct: null,
+            getData: true
+        });
         this.getData(Urls.products)
-            .then(products => this.setState({products}));
+            .then(products => this.setState({
+                products,
+                getData: false
+            }));
     }
 
     selectedProduct = product => {
@@ -58,63 +64,69 @@ export default class ElectronicsStore extends Component {
     }
 
     logOut = () => {
-      this.setState({
-          authorization: false
-      });
+        this.setState({
+            authorization: false
+        });
     }
 
     addReview = (id, rate, text) => {
-      text = text.trim();
-  		if(text === '') {
-        alert('Fill the text field, please!');
-        return;
-  		}
-       fetch(Urls.reviews + id, {
-  				method: 'POST',
-  				headers: {
-  					'Content-Type': 'application/json',
-  					'Authorization': 'Token ' + this.state.token
-  				},
-  				body: JSON.stringify({rate, text})
-  			})
-        .then(response => response.json())
-        .then(responseObj => {
-          //the server do not return review_id as in the task
-          if(responseObj.success){
-            alert('Congratulation, your review was added!');
-            this.getData(Urls.reviews + this.state.currentProduct.id)
-                .then(reviews => {
-                    this.setState({reviews})
-                });
-          }
-          else alert('Sorry, the server has returned the error, your review was not added!');
+        text = text.trim();
+        if (text === '') {
+            alert('Fill the text field, please!');
+            return;
         }
-      )
-  	}
+        this.setState({getData: true});
+        fetch(Urls.reviews + id, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Token ' + this.state.token
+            },
+            body: JSON.stringify({rate, text})
+        })
+            .then(response => response.json())
+            .then(responseObj => {
+                    //the server do not return review_id as written in the task
+                    if (responseObj.success) {
+                        alert('Congratulation, your review was added!');
+                        this.getData(Urls.reviews + this.state.currentProduct.id)
+                            .then(reviews => {
+                                this.setState({
+                                    reviews,
+                                    getData: false
+                                })
+                            });
+                    }
+                    else alert('Sorry, the server has returned the error, your review was not added!');
+                }
+            )
+    }
 
-  logReg = (url, username, password) => {
-      username = username.trim();
-      password = password.trim();
-      if (username === '' || password === '') {
-          alert('Fill both fields, please!');
-          return;
+    logReg = (url, username, password) => {
+        username = username.trim();
+        password = password.trim();
+        if (username === '' || password === '') {
+            alert('Fill both fields, please!');
+            return;
         }
+        this.setState({getData: true});
         fetch(url, {
-          method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({username, password})
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({username, password})
         })
-        .then(response => response.json())
-        .then(responseObj => {
-          if(responseObj.success){
-          this.setState({
-          authorization: responseObj.success,
-          token: responseObj.token
-        })
-      }
-        else alert(responseObj.message);
-      }
-      )
+            .then(response => response.json())
+            .then(responseObj => {
+                    if (responseObj.success) {
+                        this.setState({
+                            authorization: responseObj.success,
+                            token: responseObj.token,
+                            getData: false
+                        })
+                    }
+                    else alert(responseObj.message);
+                }
+            )
     }
 
     getButtonBack = () => {
@@ -126,9 +138,9 @@ export default class ElectronicsStore extends Component {
                         onPress={() => this.previousScreen()}
                     >
                         <Icon
-                        name='angle-left'
-                        size={40}
-                        color='red'
+                            name='angle-left'
+                            size={40}
+                            color='red'
                         />
                     </Button>
                 </Left>
@@ -136,6 +148,21 @@ export default class ElectronicsStore extends Component {
     }
 
     render() {
+        if (this.state.getData)
+            return (
+                <Container>
+                    <Header>
+                        <Body>
+                        <Text
+                            style={styles.textLoader}
+                        >
+                            Please wait while data is loading
+                        </Text>
+                        </Body>
+                    </Header>
+                    <Loader/>
+                </Container>
+            );
         return (
             <Container>
                 <Header>
@@ -158,7 +185,6 @@ export default class ElectronicsStore extends Component {
                     />
                     <ProductDetails
                         authorization={this.state.authorization}
-                        // previousScreen={this.previousScreen}
                         product={this.state.currentProduct}
                         reviews={this.state.reviews}
                         addReview={this.addReview}
@@ -184,4 +210,9 @@ const styles = StyleSheet.create({
         borderWidth: 0.5,
         borderColor: 'lightgray'
     },
+    textLoader: {
+        color: 'white',
+        alignSelf: 'center',
+        fontSize: 18
+    }
 });

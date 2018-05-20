@@ -9,7 +9,6 @@ import {
 import Urls from '../constants/Urls';
 
 export default class Product extends Component {
-
     handleSelectedProduct = () => {
         this.props.selectedProduct(this.props.product);
     }
@@ -23,9 +22,7 @@ export default class Product extends Component {
                     <View>
                         <Text style={styles.text}>{this.props.product.title}</Text>
                         <Image
-                            source={{
-                                uri: uriImg
-                            }}
+                            source={{uri: uriImg}}
                             style={{width: 72, height: 72}}/>
                     </View>
                     <View style={{paddingLeft: 50}}>
