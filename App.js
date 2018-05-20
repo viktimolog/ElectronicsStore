@@ -97,7 +97,10 @@ export default class ElectronicsStore extends Component {
                                 })
                             });
                     }
-                    else alert('Sorry, the server has returned the error, your review was not added!');
+                    else{
+                        alert('Sorry, the server has returned the error, your review was not added!');
+                        this.setState({getData: false});
+                    }
                 }
             )
     }
@@ -124,7 +127,10 @@ export default class ElectronicsStore extends Component {
                             getData: false
                         })
                     }
-                    else alert(responseObj.message);
+                    else{
+                        alert(responseObj.message);
+                        this.setState({getData: false});
+                    }
                 }
             )
     }
