@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {StyleSheet} from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import {
     Button,
     Container,
@@ -27,7 +27,7 @@ export default class ElectronicsStore extends Component {
             reviews: [],
             token: null,
             getData: true,
-            userName:''
+            userName: ''
         }
     }
 
@@ -67,7 +67,7 @@ export default class ElectronicsStore extends Component {
     logOut = () => {
         this.setState({
             authorization: false,
-            userName:''
+            userName: ''
         });
     }
 
@@ -153,7 +153,7 @@ export default class ElectronicsStore extends Component {
                         />
                     </Button>
                 </Left>
-            );
+            )
     }
 
     render() {
@@ -171,7 +171,7 @@ export default class ElectronicsStore extends Component {
                     </Header>
                     <Loader/>
                 </Container>
-            );
+            )
         return (
             <Container>
                 <Header>
@@ -201,7 +201,7 @@ export default class ElectronicsStore extends Component {
                     />
                 </Content>
             </Container>
-        );
+        )
     }
 }
 
