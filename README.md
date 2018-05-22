@@ -13,5 +13,4 @@
     `npm install or yarn install`
 
 # Test environment
-**Android 6.0, **
-**IOS 11**
+**Android 6.0, IOS 11**
