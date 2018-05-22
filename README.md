@@ -14,3 +14,4 @@
 
 # Test environment
 **Android 6.0**
+**IOS 11**
