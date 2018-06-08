@@ -10,32 +10,31 @@ import AddReviewForm from './AddReviewForm';
 import Review from './Review';
 import Urls from '../constants/Urls';
 
-export default class ProductDetails extends Component {
-  render () {
-    if (this.props.product)
-      return (
-        <View>
-          <View style={styles.container}>
-            <View style={styles.imageContainer}>
-              <Text style={styles.text}>{this.props.product.title}</Text>
-              <Image
-                source={{
-                  uri: Urls.images + this.props.product.img
-                }}
-                style={{width: 250, height: 220}}/>
-            </View>
-            <View>
-              <Text style={styles.text}>
-                {`Description: ${this.props.product.text}`}
-              </Text>
-            </View>
+export default class ItemDetails extends Component {
+  render() {
+    return (
+      <View>
+        <View style={styles.container}>
+          <View style={styles.imageContainer}>
+            <Text style={styles.text}>{this.props.item.title}</Text>
+            <Image
+              source={{
+                uri: Urls.images + this.props.item.img
+              }}
+              style={{ width: 250, height: 220 }} />
           </View>
-          <AddReviewForm
+          <View style={{ paddingTop: 130 }}>
+            <Text style={styles.text}>
+              {`Description: ${this.props.item.text}`}
+            </Text>
+          </View>
+        </View>
+         <AddReviewForm
             authorization={this.props.authorization}
             addReview={this.props.addReview}
-            id={this.props.product.id}
+            id={this.props.item.id}
           />
-          <ScrollView>
+      <ScrollView>
             {
               this.props.reviews
                 .sort((a, b) => b.id - a.id)
@@ -47,9 +46,9 @@ export default class ProductDetails extends Component {
                 )
             }
           </ScrollView>
-        </View>
-      )
-    return null;
+      </View>
+    )
+
   }
 }
 
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop: 10,
+    paddingTop: 130,
     paddingBottom: 10,
     borderBottomWidth: 1
   },

@@ -11,12 +11,17 @@ import {
 import StarRating from 'react-native-star-rating';
 
 export default class AddReviewForm extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      text: '',
-      starCount: 0
-    }
+  // constructor (props) {
+  //   super(props)
+  //   this.state = {
+  //     text: '',
+  //     starCount: 0
+  //   }
+  // }
+
+  state = {
+    text: '',
+    starCount: 0
   }
 
   componentWillReceiveProps () {
@@ -75,7 +80,7 @@ export default class AddReviewForm extends Component {
     )
   }
 
-  render () {
+  render () {    
     const loginFalse = (
       <View style={styles.container}>
         <Text style={{color: 'red', fontSize: 18}}>
@@ -98,7 +103,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   container: {
-    flex: 1,
+    // flex: 1,
     paddingLeft: 20,
     paddingRight: 20,
     alignItems: 'center',

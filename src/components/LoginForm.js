@@ -8,18 +8,16 @@ import {
   Input,
   View
 } from 'native-base';
-import { login, reg, logout } from '../constants';
+import {TextConstants} from '../constants/TextConstants';
 import Urls from '../constants/Urls';
 
 export default class Loginform extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      login: '',
-      password: ''
-    }
+  state = {
+    login: '',
+    password: ''
   }
 
+//переписать в одну функцию loginTextHandler и passwordTextHandler
   loginTextHandler = val => {
     this.setState({
       login: val
@@ -32,20 +30,22 @@ export default class Loginform extends Component {
     })
   }
 
+  //переписать в одну функцию loginHandler и registerHandler (url)
+
   loginHandler = () => {
-    this.props.logReg(
-      Urls.log,
-      this.state.login,
-      this.state.password
-    )
+    const user = {
+      username: this.state.login,
+      password: this.state.password
+    }
+    this.props.logReg(Urls.log, user);
   }
 
   registerHandler = () => {
-    this.props.logReg(
-      Urls.reg,
-      this.state.login,
-      this.state.password
-    )
+    const user = {
+      username: this.state.login,
+      password: this.state.password
+    }
+    this.props.logReg(Urls.reg, user);
   }
 
   logOutHandler = () => {
@@ -62,13 +62,13 @@ export default class Loginform extends Component {
         <Form>
           <Item>
             <Input
-              placeholder='Login'
+              placeholder={TextConstants.LOGIN}
               onChangeText={this.loginTextHandler}
               value={this.state.login}
             />
           </Item>
           <Item last>
-            <Input placeholder='Password'
+            <Input placeholder={TextConstants.PASSWORD}
                    onChangeText={this.passwordTextHandler}
                    value={this.state.password}
             />
@@ -76,11 +76,11 @@ export default class Loginform extends Component {
           <View style={styles.container}>
             <Button
               onPress={this.loginHandler}>
-              <Text>{login}</Text>
+              <Text>{TextConstants.LOGIN}</Text>
             </Button>
             <Button
               onPress={this.registerHandler}>
-              <Text>{reg}</Text>
+              <Text>{TextConstants.REG}</Text>
             </Button>
           </View>
         </Form>
@@ -94,7 +94,7 @@ export default class Loginform extends Component {
           </Text>
           <Button
             onPress={this.logOutHandler}>
-            <Text>{logout}</Text>
+            <Text>{TextConstants.LOGOUT}</Text>
           </Button>
         </View>
       )
