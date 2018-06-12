@@ -48,7 +48,7 @@ export default class Loginform extends Component {
     this.props.logReg(Urls.reg, user);
   }
 
-  logOutHandler = () => {
+  logOutHandler = () => {    
     this.setState({
       password: '',
       login: ''

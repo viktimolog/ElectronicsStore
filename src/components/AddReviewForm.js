@@ -44,14 +44,20 @@ export default class AddReviewForm extends Component {
   }
 
   addReviewHandler = () => {
+    if (this.state.text.trim() === '') {
+        alert('Fill the text field, please!');
+        return;
+    }
     if (this.state.starCount === 0) {
       alert('Select rate, please!')
       return
     }
     this.props.addReview(
-      this.props.id,
+      this.props.item,
       this.state.starCount,
-      this.state.text)
+      this.state.text,
+      this.props.token      
+      )
   }
 
   getAddReviewForm = () => {
@@ -80,7 +86,7 @@ export default class AddReviewForm extends Component {
     )
   }
 
-  render () {    
+  render () {
     const loginFalse = (
       <View style={styles.container}>
         <Text style={{color: 'red', fontSize: 18}}>

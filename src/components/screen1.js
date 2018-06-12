@@ -9,7 +9,8 @@ import {
   incrementAction,
   decrementAction,
   setAuthorization,
-  logReg
+  logReg,
+  logOut
  } from '../actions/actionCreator'
 
 import ItemsList from './ItemsList'
@@ -44,7 +45,6 @@ class Screen1View extends Component {
   };
 
   render() {
-    // alert('render Screen1')
     const {
       setCurItem,
       items,
@@ -53,14 +53,15 @@ class Screen1View extends Component {
       decrementAction,
       getItems
     } = this.props;
+
     return (
       <Container>
       <Content>
       <LoginForm
       authorization = {this.props.authorization}
-      logReg = {this.props.logReg}      
+      logReg = {this.props.logReg}
       userName={this.props.userName}
-
+      logOut = {this.props.logOut}
       />
         <ItemsList
           items={this.props.items}
@@ -122,7 +123,8 @@ const mapDispatchToProps = {
   getItems,
   setCurItem,
   setAuthorization,
-  logReg
+  logReg,
+  logOut
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Screen1View);

@@ -9,8 +9,9 @@ import {
 import Urls from '../constants/Urls';
 
 export default class Item extends Component {
-  handleSelectedItem = () => {    
+  handleSelectedItem = () => {
     this.props.setCurItem(this.props.item);
+    //большой вопрос, скорее надо из одного редусера вызывать функцию другого или хз    
     this.props.navigate();
   }
 

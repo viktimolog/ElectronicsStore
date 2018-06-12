@@ -5,4 +5,6 @@ export const TextConstants = {
   REG: 'Register',
   LOGOUT: 'Log Out',
   PASSWORD: 'Password',
+  ADDREVIEWOK: 'Congratulation, your review was added!',
+  ADDREVIEWBAD: 'Sorry, the server has returned the error, your review was not added!'
 }

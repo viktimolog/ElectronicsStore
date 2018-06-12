@@ -3,7 +3,9 @@ import {
   decrementCounter,
   SET_CURITEM,
   GET_ITEMS,
-  SET_AUTHORIZATION
+  SET_AUTHORIZATION,
+  LOG_OUT,
+  SET_GETDATA
  } from '../actions/actionTypes';
 
 const initialState = {
@@ -34,7 +36,8 @@ const mainReducer = (state = initialState, action) => {
         return {
            ...state,
            curItem: action.curItem,
-           reviews: action.payload
+           reviews: action.reviews,
+           getData: true
          }
       }
 
@@ -43,8 +46,26 @@ const mainReducer = (state = initialState, action) => {
            ...state,
            authorization: action.authorization,
            userName: action.userName,
-           getData: action.getData
+           getData: action.getData,
+           token: action.token
          }
+      }
+
+      case LOG_OUT: {
+        return {
+           ...state,
+            userName: '',
+            token: '',
+            authorization: false,
+            getData: false
+          }
+      }
+
+      case SET_GETDATA:{
+        return{
+          ...state,
+           getData: payload
+        }
       }
 
     default:

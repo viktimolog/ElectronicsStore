@@ -23,7 +23,7 @@ export default class ItemDetails extends Component {
               }}
               style={{ width: 250, height: 220 }} />
           </View>
-          <View style={{ paddingTop: 130 }}>
+        <View style={{ paddingTop: 10 }}>
             <Text style={styles.text}>
               {`Description: ${this.props.item.text}`}
             </Text>
@@ -31,8 +31,9 @@ export default class ItemDetails extends Component {
         </View>
          <AddReviewForm
             authorization={this.props.authorization}
+            item={this.props.item}
+            token={this.props.token}
             addReview={this.props.addReview}
-            id={this.props.item.id}
           />
       <ScrollView>
             {
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: 10,
     paddingRight: 10,
-    paddingTop: 130,
+    paddingTop: 10,
     paddingBottom: 10,
     borderBottomWidth: 1
   },
