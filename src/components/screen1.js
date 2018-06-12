@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { View, TouchableOpacity } from 'react-native'
+import { NavigationActions } from 'react-navigation'
+import { connect } from 'react-redux'
 
 import {
   setCurItem,
@@ -24,12 +25,12 @@ import {
     Title,
     Left,
     Text
-} from 'native-base';
+} from 'native-base'
 
 class Screen1View extends Component {
   static navigationOptions = {
     title: TextConstants.TITLESCREEN1
-  };
+  }
 
   componentDidMount() {
     this.props.getItems();
@@ -37,16 +38,12 @@ class Screen1View extends Component {
 
   navigate = () => {
     const navigateToScreen2 = NavigationActions.navigate({
-      routeName: 'screen2',
-      params: { name: "Shubhnik" }
-    });
+      routeName: 'screen2'
+    })
     this.props.navigation.dispatch(navigateToScreen2);
-  };
+  }
 
-  getContent = () => {
-  if(this.props.getData)
-  return <Loader/>
-  return(
+  getContent = () => (
   <Content>
   <LoginForm
     authorization = {this.props.authorization}
@@ -61,32 +58,44 @@ class Screen1View extends Component {
   />
   </Content>
   )
-}
 
 render() {
 return (
     <Container>
-      {this.getContent()}
+    {this.props.getData
+      ? <Loader/>
+      : this.getContent()}
     </Container>
     )
   }
 }
 
+Screen1View.propTypes = {
+authorization: PropTypes.bool.isRequired,
+navigation: PropTypes.object.isRequired,
+getItems: PropTypes.func.isRequired,
+logReg: PropTypes.func.isRequired,
+userName: PropTypes.string.isRequired,
+logOut: PropTypes.func.isRequired,
+items: PropTypes.array.isRequired,
+setCurItem: PropTypes.func.isRequired,
+getData: PropTypes.bool.isRequired,
+setAuthorization: PropTypes.func
+}
+
 const mapStateToProps = state => ({
-  counterCount: state.mainReducer.counter,
   items: state.mainReducer.items,
   authorization: state.mainReducer.authorization,
   getData: state.mainReducer.getData,
   userName: state.mainReducer.userName
-});
+})
 
-//setCurItem - те что передает дальше просто - тоже обязательно здесь
 const mapDispatchToProps = {
   getItems,
   setCurItem,
   setAuthorization,
   logReg,
   logOut
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Screen1View);

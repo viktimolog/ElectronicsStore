@@ -1,23 +1,26 @@
-import React, { Component } from 'react';
-import { ScrollView, View } from 'react-native';
-import Item from './Item';
+import React from 'react'
+import PropTypes from 'prop-types'
+import { ScrollView, View } from 'react-native'
+import Item from './Item'
 
-export default class ItemsList extends Component {
-  render () {
-      return (
+const ItemsList = ({items, navigate, setCurItem}) => (
         <ScrollView>
           {
-            this.props.items.map(item =>
+            items.map(item =>
               <Item
                 item={item}
                 key={item.id}
-                navigate = {this.props.navigate}
-                setCurItem = {this.props.setCurItem}
-                // selectedProduct={this.props.selectedProduct}
+                navigate = {navigate}
+                setCurItem = {setCurItem}
               />
             )
           }
         </ScrollView>
       )
-  }
+export default ItemsList
+
+ItemsList.propTypes = {
+items: PropTypes.array.isRequired,
+navigate: PropTypes.func.isRequired,
+setCurItem: PropTypes.func.isRequired
 }

@@ -1,4 +1,4 @@
-import AppNavigator from "../navigation/navigationStack";
+import AppNavigator from '../navigation/navigationStack';
 
 const initialState = AppNavigator.router.getStateForAction(
   AppNavigator.router.getActionForPathAndParams('screen1')

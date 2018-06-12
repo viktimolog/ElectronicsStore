@@ -4,10 +4,9 @@ import { addNavigationHelpers } from 'react-navigation';
 import NavigationStack from './navigationStack';
 
 import {
-  createNavigationPropConstructor,       
-  createNavigationReducer,               
-  createReactNavigationReduxMiddleware,  
-  // initializeListeners,                   
+  createNavigationPropConstructor,
+  createNavigationReducer,
+  createReactNavigationReduxMiddleware                 
 } from 'react-navigation-redux-helpers';
 
 const middleware = createReactNavigationReduxMiddleware(

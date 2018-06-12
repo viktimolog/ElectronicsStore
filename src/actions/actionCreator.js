@@ -81,7 +81,7 @@ export const addReview = (curItem, rate, text, token) => dispatch =>{
   dispatch({
     type: SET_GETDATA,
     payload: true
-  })  
+  })
 AddReview(curItem, rate, text, token)
 .then(res => {
 if(res.data.success){

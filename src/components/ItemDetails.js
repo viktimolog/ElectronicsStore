@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 import {
   StyleSheet,
   Image,
@@ -10,34 +11,32 @@ import AddReviewForm from './AddReviewForm';
 import Review from './Review';
 import Urls from '../constants/Urls';
 
-export default class ItemDetails extends Component {
-  render() {
-    return (
+const ItemDetails = ({item, reviews, authorization, token, addReview}) => (
       <View>
         <View style={styles.container}>
           <View style={styles.imageContainer}>
-            <Text style={styles.text}>{this.props.item.title}</Text>
+            <Text style={styles.text}>{item.title}</Text>
             <Image
               source={{
-                uri: Urls.images + this.props.item.img
+                uri: Urls.images + item.img
               }}
               style={{ width: 250, height: 220 }} />
           </View>
         <View style={{ paddingTop: 10 }}>
             <Text style={styles.text}>
-              {`Description: ${this.props.item.text}`}
+              {`Description: ${item.text}`}
             </Text>
           </View>
         </View>
          <AddReviewForm
-            authorization={this.props.authorization}
-            item={this.props.item}
-            token={this.props.token}
-            addReview={this.props.addReview}
+            authorization={authorization}
+            item={item}
+            token={token}
+            addReview={addReview}
           />
       <ScrollView>
             {
-              this.props.reviews
+              reviews
                 .sort((a, b) => b.id - a.id)
                 .map(review =>
                   <Review
@@ -50,7 +49,14 @@ export default class ItemDetails extends Component {
       </View>
     )
 
-  }
+export default ItemDetails
+
+ItemDetails.propTypes = {
+item: PropTypes.object.isRequired,
+reviews: PropTypes.array.isRequired,
+authorization: PropTypes.bool.isRequired,
+token: PropTypes.string.isRequired,
+addReview: PropTypes.func.isRequired
 }
 
 const styles = StyleSheet.create({

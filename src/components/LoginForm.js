@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { StyleSheet } from 'react-native'
 import {
   Button,
   Text,
@@ -11,26 +12,17 @@ import {
 import {TextConstants} from '../constants/TextConstants';
 import Urls from '../constants/Urls';
 
-export default class Loginform extends Component {
+export default class LoginForm extends Component {
   state = {
     login: '',
     password: ''
   }
 
-//переписать в одну функцию loginTextHandler и passwordTextHandler
-  loginTextHandler = val => {
-    this.setState({
-      login: val
-    })
-  }
-
-  passwordTextHandler = val => {
-    this.setState({
-      password: val
-    })
-  }
-
-  //переписать в одну функцию loginHandler и registerHandler (url)
+  stringHandler = name => val => {
+  this.setState({
+    [name]: val
+  })
+}
 
   loginHandler = () => {
     const user = {
@@ -48,7 +40,7 @@ export default class Loginform extends Component {
     this.props.logReg(Urls.reg, user);
   }
 
-  logOutHandler = () => {    
+  logOutHandler = () => {
     this.setState({
       password: '',
       login: ''
@@ -63,13 +55,13 @@ export default class Loginform extends Component {
           <Item>
             <Input
               placeholder={TextConstants.LOGIN}
-              onChangeText={this.loginTextHandler}
+              onChangeText={this.stringHandler('login')}
               value={this.state.login}
             />
           </Item>
           <Item last>
             <Input placeholder={TextConstants.PASSWORD}
-                   onChangeText={this.passwordTextHandler}
+                   onChangeText={this.stringHandler('password')}
                    value={this.state.password}
             />
           </Item>
@@ -107,6 +99,13 @@ export default class Loginform extends Component {
       </View>
     )
   }
+}
+
+LoginForm.propTypes = {
+authorization: PropTypes.bool.isRequired,
+logOut: PropTypes.func.isRequired,
+logReg: PropTypes.func.isRequired,
+userName: PropTypes.string.isRequired
 }
 
 const styles = StyleSheet.create({

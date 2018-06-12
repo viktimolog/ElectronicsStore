@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import { NavigationActions } from 'react-navigation';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { View, TouchableOpacity, BackHandler } from 'react-native'
+import { NavigationActions } from 'react-navigation'
+import { connect } from 'react-redux'
 import ItemDetails from './ItemDetails'
 import {TextConstants} from '../constants/TextConstants'
 import {
@@ -30,10 +31,23 @@ class Screen2View extends Component {
     title: TextConstants.TITLESCREEN2
   };
 
-getContent=()=>{
-  if(this.props.getData)
-  return <Loader/>
-  return(
+  componentDidMount() {
+    BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
+}
+
+  onBackPress = () => {
+    const navigateToScreen1 = NavigationActions.navigate({
+      routeName: 'screen1'
+    })
+    this.props.navigation.dispatch(navigateToScreen1);
+    return true;
+  }
+
+getContent=()=>(
     <Content>
     <LoginForm
     authorization = {this.props.authorization}
@@ -50,15 +64,30 @@ getContent=()=>{
       />
     </Content>
   )
-}
 
   render() {
     return (
       <Container>
-      {this.getContent()}
+      {this.props.getData
+        ? <Loader/>
+        : this.getContent()}
       </Container>
     )
   }
+}
+
+Screen2View.propTypes = {
+addReview: PropTypes.func.isRequired,
+logOut: PropTypes.func.isRequired,
+logReg: PropTypes.func.isRequired,
+setAuthorization: PropTypes.func,
+setCurItem: PropTypes.func.isRequired,
+curItem: PropTypes.object.isRequired,
+authorization: PropTypes.bool.isRequired,
+reviews: PropTypes.array.isRequired,
+getData: PropTypes.bool.isRequired,
+userName: PropTypes.string.isRequired,
+token: PropTypes.string.isRequired,
 }
 
 const mapStateToProps = state => ({
@@ -68,15 +97,14 @@ const mapStateToProps = state => ({
   getData: state.mainReducer.getData,
   userName: state.mainReducer.userName,
   token: state.mainReducer.token
-});
+})
 
 const mapDispatchToProps = {
   setCurItem,
   setAuthorization,
-  setAuthorization,
   logReg,
   logOut,
   addReview
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Screen2View);
