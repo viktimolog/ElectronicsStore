@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { View, TouchableOpacity, BackHandler } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 import { NavigationActions } from 'react-navigation'
 import { connect } from 'react-redux'
 import ItemDetails from './ItemDetails'
@@ -31,23 +31,7 @@ class Screen2View extends Component {
     title: TextConstants.TITLESCREEN2
   };
 
-  componentDidMount() {
-    BackHandler.addEventListener("hardwareBackPress", this.onBackPress);
-  }
-
-  componentWillUnmount() {
-    BackHandler.removeEventListener("hardwareBackPress", this.onBackPress);
-}
-
-  onBackPress = () => {
-    const navigateToScreen1 = NavigationActions.navigate({
-      routeName: 'screen1'
-    })
-    this.props.navigation.dispatch(navigateToScreen1);
-    return true;
-  }
-
-getContent=()=>(
+getContent = () => (
     <Content>
     <LoginForm
     authorization = {this.props.authorization}
