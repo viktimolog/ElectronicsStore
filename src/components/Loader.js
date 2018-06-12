@@ -1,24 +1,32 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import {
   ActivityIndicator,
   StyleSheet,
-  View
-} from 'react-native';
+  View,
+  Text
+} from 'react-native'
+import {TextConstants} from '../constants/TextConstants'
 
-export default class Loader extends Component {
-  render () {
-    return (
-      <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size="large" color="#0000ff"/>
-      </View>
-    )
-  }
-}
+const Loader = () => (
+  <View style={{flex: 1}}>
+  <Text style={styles.containerText}>{TextConstants.TEXTLOADER}</Text>
+  <View style={[styles.container, styles.horizontal]}>
+    <ActivityIndicator size='large' color='#0000ff'/>
+  </View>
+  </View>
+)
+export default Loader
 
 const styles = StyleSheet.create({
+  containerText: {
+    fontSize: 18,
+    color: 'red',
+    alignSelf: 'center'
+  },
   container: {
-    flex: 1,
-    justifyContent: 'center'
+    position: 'absolute',
+    top: '50%',
+    alignSelf: 'center'
   },
   horizontal: {
     flexDirection: 'row',

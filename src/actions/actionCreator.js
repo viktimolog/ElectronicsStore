@@ -1,6 +1,4 @@
 import {
-  incrementCounter,
-  decrementCounter,
   GET_ITEMS,
   SET_CURITEM,
   SET_AUTHORIZATION,
@@ -16,15 +14,11 @@ import {
  } from './axiosRequests'
 import {TextConstants} from '../constants/TextConstants'
 
-export const incrementAction = () => ({
-  type: incrementCounter
-});
-
-export const decrementAction = () => ({
-  type: decrementCounter
-});
-
 export const getItems = () => dispatch => {
+  dispatch({
+    type: SET_GETDATA,
+    payload: true
+  })
   GetItems()
     .then(res =>
       dispatch({
@@ -35,6 +29,10 @@ export const getItems = () => dispatch => {
 }
 
 export const setCurItem = curItem => dispatch => {
+  dispatch({
+    type: SET_GETDATA,
+    payload: true
+  })
   GetReviews(curItem.id)
   .then(res =>
     dispatch({
@@ -50,6 +48,10 @@ export const logOut = () => ({
 });
 
 export const logReg = (url, user) => dispatch => {
+  dispatch({
+    type: SET_GETDATA,
+    payload: true
+  })
   LogRegUser(url, user)
   .then(res =>{
   if (res.data.success){
@@ -76,6 +78,10 @@ else{
 }
 
 export const addReview = (curItem, rate, text, token) => dispatch =>{
+  dispatch({
+    type: SET_GETDATA,
+    payload: true
+  })  
 AddReview(curItem, rate, text, token)
 .then(res => {
 if(res.data.success){

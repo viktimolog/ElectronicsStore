@@ -6,5 +6,6 @@ export const TextConstants = {
   LOGOUT: 'Log Out',
   PASSWORD: 'Password',
   ADDREVIEWOK: 'Congratulation, your review was added!',
-  ADDREVIEWBAD: 'Sorry, the server has returned the error, your review was not added!'
+  ADDREVIEWBAD: 'Sorry, the server has returned the error, your review was not added!',
+  TEXTLOADER: 'Please wait while data is loading!'
 }

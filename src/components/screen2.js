@@ -17,38 +17,45 @@ import {
 import {
   setCurItem,
   getItems,
-  incrementAction,
-  decrementAction,
   setAuthorization,
   logReg,
   logOut,
   addReview
  } from '../actions/actionCreator'
 import LoginForm from './LoginForm'
+import Loader from './Loader'
 
 class Screen2View extends Component {
   static navigationOptions = {
     title: TextConstants.TITLESCREEN2
   };
 
+getContent=()=>{
+  if(this.props.getData)
+  return <Loader/>
+  return(
+    <Content>
+    <LoginForm
+    authorization = {this.props.authorization}
+    logReg = {this.props.logReg}
+    userName={this.props.userName}
+    logOut = {this.props.logOut}
+    />
+      <ItemDetails
+      item={this.props.curItem}
+      authorization={this.props.authorization}
+      reviews = {this.props.reviews}
+      token={this.props.token}
+      addReview={this.props.addReview}
+      />
+    </Content>
+  )
+}
+
   render() {
     return (
       <Container>
-      <Content>
-      <LoginForm
-      authorization = {this.props.authorization}
-      logReg = {this.props.logReg}
-      userName={this.props.userName}
-      logOut = {this.props.logOut}
-      />
-        <ItemDetails
-        item={this.props.curItem}
-        authorization={this.props.authorization}
-        reviews = {this.props.reviews}
-        token={this.props.token}
-        addReview={this.props.addReview}
-        />
-      </Content>
+      {this.getContent()}
       </Container>
     )
   }

@@ -6,15 +6,14 @@ import { connect } from 'react-redux';
 import {
   setCurItem,
   getItems,
-  incrementAction,
-  decrementAction,
   setAuthorization,
   logReg,
   logOut
  } from '../actions/actionCreator'
 
-import ItemsList from './ItemsList'
 import {TextConstants} from '../constants/TextConstants'
+import ItemsList from './ItemsList'
+import Loader from './Loader'
 import LoginForm from './LoginForm'
 import {
     Button,
@@ -44,66 +43,31 @@ class Screen1View extends Component {
     this.props.navigation.dispatch(navigateToScreen2);
   };
 
-  render() {
-    const {
-      setCurItem,
-      items,
-      counterCount,
-      incrementAction,
-      decrementAction,
-      getItems
-    } = this.props;
+  getContent = () => {
+  if(this.props.getData)
+  return <Loader/>
+  return(
+  <Content>
+  <LoginForm
+    authorization = {this.props.authorization}
+    logReg = {this.props.logReg}
+    userName={this.props.userName}
+    logOut = {this.props.logOut}
+  />
+  <ItemsList
+    items={this.props.items}
+    navigate={this.navigate}
+    setCurItem={this.props.setCurItem}
+  />
+  </Content>
+  )
+}
 
-    return (
-      <Container>
-      <Content>
-      <LoginForm
-      authorization = {this.props.authorization}
-      logReg = {this.props.logReg}
-      userName={this.props.userName}
-      logOut = {this.props.logOut}
-      />
-        <ItemsList
-          items={this.props.items}
-          navigate={this.navigate}
-          setCurItem={this.props.setCurItem}
-        />
-        <Text>Items[0] = {items.length}</Text>
-        <Text>Counter = {counterCount}</Text>
-        <View style={{ height: 100, flexDirection: "row" }}>
-          <TouchableOpacity
-            onPress={() => incrementAction()}
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
-            <Text
-              style={{ textDecorationLine: "underline", fontWeight: "600" }}
-            >
-              INCREMENT
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => decrementAction()}
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
-            <Text
-              style={{ textDecorationLine: "underline", fontWeight: "600" }}
-            >
-              DECREMENT
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => getItems()}
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
-            <Text
-              style={{ textDecorationLine: "underline", fontWeight: "600" }}
-            >
-              GET_ITEMS
-            </Text>
-          </TouchableOpacity>
-        </View>
-        </Content>
-        </Container>
+render() {
+return (
+    <Container>
+      {this.getContent()}
+    </Container>
     )
   }
 }
@@ -118,8 +82,6 @@ const mapStateToProps = state => ({
 
 //setCurItem - те что передает дальше просто - тоже обязательно здесь
 const mapDispatchToProps = {
-  incrementAction,
-  decrementAction,
   getItems,
   setCurItem,
   setAuthorization,

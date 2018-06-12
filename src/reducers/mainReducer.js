@@ -1,6 +1,4 @@
 import {
-  incrementCounter,
-  decrementCounter,
   SET_CURITEM,
   GET_ITEMS,
   SET_AUTHORIZATION,
@@ -15,21 +13,17 @@ const initialState = {
    authorization: false,
    token: '',
    getData: true,
-   userName: '',
-    counter: 0
+   userName: ''    
   };
 
 const mainReducer = (state = initialState, action) => {
   switch (action.type) {
-    case incrementCounter:
-      return { ...state, counter: state.counter + 1 };
-
-    case decrementCounter:{
-      return { ...state, counter: state.counter - 1 };
-    }
-
       case GET_ITEMS: {
-        return { ...state, items: action.payload}
+        return {
+          ...state,
+           items: action.payload,
+           getData: false
+         }
       }
 
       case SET_CURITEM: {
@@ -37,7 +31,7 @@ const mainReducer = (state = initialState, action) => {
            ...state,
            curItem: action.curItem,
            reviews: action.reviews,
-           getData: true
+           getData: false
          }
       }
 
@@ -64,7 +58,7 @@ const mainReducer = (state = initialState, action) => {
       case SET_GETDATA:{
         return{
           ...state,
-           getData: payload
+           getData: action.payload
         }
       }
 
