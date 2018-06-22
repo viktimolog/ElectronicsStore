@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   textTitle: {
     alignSelf: 'center'
   },
-  container: {
+  container: {    
     paddingLeft: 20,
     paddingRight: 20,
     alignItems: 'center',
