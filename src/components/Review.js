@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types'
 import {
   StyleSheet,
   Text,
   View
 } from 'react-native';
 
-export default class Review extends Component {
-  render () {
+const Review =({review})=>{
     const dateFormat = require('dateformat')
-    const userName = `${this.props.review.created_by.username} at ${dateFormat(this.props.review.created_at,
+    const userName = `${review.created_by.username} at ${dateFormat(review.created_at,
       'dddd, mmmm dS, yyyy, h:MM:ss TT')}`
-    const rate = `Rate: ${this.props.review.rate}`
-    const comment = `Comment: ${this.props.review.text}`
+    const rate = `Rate: ${review.rate}`
+    const comment = `Comment: ${review.text}`
 
     return (
       <View style={styles.container}>
@@ -23,6 +23,11 @@ export default class Review extends Component {
       </View>
     )
   }
+
+export default Review
+
+Review.propTypes = {
+review: PropTypes.object.isRequired
 }
 
 const styles = StyleSheet.create({

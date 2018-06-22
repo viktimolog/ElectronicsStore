@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { Component } from 'react'
+import { StyleSheet } from 'react-native'
+import PropTypes from 'prop-types'
 import {
   Button,
   Text,
@@ -9,14 +10,12 @@ import {
   View
 } from 'native-base';
 import StarRating from 'react-native-star-rating';
+import {TextConstants} from '../constants/TextConstants'
 
 export default class AddReviewForm extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      text: '',
-      starCount: 0
-    }
+  state = {
+    text: '',
+    starCount: 0
   }
 
   componentWillReceiveProps () {
@@ -26,7 +25,7 @@ export default class AddReviewForm extends Component {
     })
   }
 
-  onStarRatingPress (rating) {
+ onStarRatingPress = rating => {
     this.setState({
       starCount: rating
     })
@@ -39,21 +38,26 @@ export default class AddReviewForm extends Component {
   }
 
   addReviewHandler = () => {
+    if (this.state.text.trim() === '') {
+        alert(TextConstants.FILLFIELDS)
+        return
+    }
     if (this.state.starCount === 0) {
-      alert('Select rate, please!')
+      alert(TextConstants.SELECTRATE)
       return
     }
     this.props.addReview(
-      this.props.id,
+      this.props.item,
       this.state.starCount,
-      this.state.text)
+      this.state.text,
+      this.props.token
+      )
   }
 
-  getAddReviewForm = () => {
-    return (
+  getAddReviewForm = () => (
       <Form>
         <Input
-          placeholder='Add product review'
+          placeholder={TextConstants.PLACEHOLDERADDREVIEW}
           onChangeText={this.textHandler}
           value={this.state.text}
           style={styles.input}
@@ -68,12 +72,11 @@ export default class AddReviewForm extends Component {
         <View style={styles.container}>
           <Button
             onPress={this.addReviewHandler}>
-            <Text>Add review</Text>
+            <Text>{TextConstants.BTNADDREVIEW}</Text>
           </Button>
         </View>
       </Form>
     )
-  }
 
   render () {
     const loginFalse = (
@@ -93,12 +96,18 @@ export default class AddReviewForm extends Component {
   }
 }
 
+AddReviewForm.propTypes = {
+authorization: PropTypes.bool.isRequired,
+addReview: PropTypes.func.isRequired,
+item: PropTypes.object.isRequired,
+token: PropTypes.string.isRequired
+}
+
 const styles = StyleSheet.create({
   textTitle: {
     alignSelf: 'center'
   },
   container: {
-    flex: 1,
     paddingLeft: 20,
     paddingRight: 20,
     alignItems: 'center',

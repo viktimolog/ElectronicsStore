@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { StyleSheet } from 'react-native'
 import {
   Button,
   Text,
@@ -8,44 +9,35 @@ import {
   Input,
   View
 } from 'native-base';
-import { login, reg, logout } from '../constants';
+import {TextConstants} from '../constants/TextConstants';
 import Urls from '../constants/Urls';
 
-export default class Loginform extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {
-      login: '',
-      password: ''
-    }
+export default class LoginForm extends Component {
+  state = {
+    login: '',
+    password: ''
   }
 
-  loginTextHandler = val => {
-    this.setState({
-      login: val
-    })
-  }
-
-  passwordTextHandler = val => {
-    this.setState({
-      password: val
-    })
-  }
+  stringHandler = name => val => {
+  this.setState({
+    [name]: val
+  })
+}
 
   loginHandler = () => {
-    this.props.logReg(
-      Urls.log,
-      this.state.login,
-      this.state.password
-    )
+    const user = {
+      username: this.state.login,
+      password: this.state.password
+    }
+    this.props.logReg(Urls.log, user);
   }
 
   registerHandler = () => {
-    this.props.logReg(
-      Urls.reg,
-      this.state.login,
-      this.state.password
-    )
+    const user = {
+      username: this.state.login,
+      password: this.state.password
+    }
+    this.props.logReg(Urls.reg, user);
   }
 
   logOutHandler = () => {
@@ -62,25 +54,25 @@ export default class Loginform extends Component {
         <Form>
           <Item>
             <Input
-              placeholder='Login'
-              onChangeText={this.loginTextHandler}
+              placeholder={TextConstants.LOGIN}
+              onChangeText={this.stringHandler('login')}
               value={this.state.login}
             />
           </Item>
           <Item last>
-            <Input placeholder='Password'
-                   onChangeText={this.passwordTextHandler}
+            <Input placeholder={TextConstants.PASSWORD}
+                   onChangeText={this.stringHandler('password')}
                    value={this.state.password}
             />
           </Item>
           <View style={styles.container}>
             <Button
               onPress={this.loginHandler}>
-              <Text>{login}</Text>
+              <Text>{TextConstants.LOGIN}</Text>
             </Button>
             <Button
               onPress={this.registerHandler}>
-              <Text>{reg}</Text>
+              <Text>{TextConstants.REG}</Text>
             </Button>
           </View>
         </Form>
@@ -94,7 +86,7 @@ export default class Loginform extends Component {
           </Text>
           <Button
             onPress={this.logOutHandler}>
-            <Text>{logout}</Text>
+            <Text>{TextConstants.LOGOUT}</Text>
           </Button>
         </View>
       )
@@ -107,6 +99,13 @@ export default class Loginform extends Component {
       </View>
     )
   }
+}
+
+LoginForm.propTypes = {
+authorization: PropTypes.bool.isRequired,
+logOut: PropTypes.func.isRequired,
+logReg: PropTypes.func.isRequired,
+userName: PropTypes.string.isRequired
 }
 
 const styles = StyleSheet.create({

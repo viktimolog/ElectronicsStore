@@ -7,16 +7,36 @@
     "test": "jest"
   },
   "dependencies": {
+<<<<<<< HEAD
     "dateformat": "^3.0.3",
     "native-base": "^2.4.5",
     "react": "16.3.1",
     "react-native": "0.55.4",
     "react-native-star-rating": "^1.0.9",
     "react-native-vector-icons": "^4.6.0"
+=======
+    "axios": "^0.18.0",
+    "dateformat": "^3.0.3",
+    "native-base": "^2.4.5",
+    "react": "16.3.1",
+    "react-activity-indicator": "^0.7.77",
+    "react-native": "0.55.4",
+    "react-native-star-rating": "^1.0.9",
+    "react-native-vector-icons": "^4.6.0",
+    "react-navigation": "^2.2.0",
+    "react-navigation-redux-helpers": "^1.1.2",
+    "react-redux": "^5.0.7",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0"
+>>>>>>> addredux
   },
   "devDependencies": {
     "babel-jest": "22.4.4",
     "babel-preset-react-native": "4.0.0",
+<<<<<<< HEAD
+=======
+    "eslint": "^4.19.1",
+>>>>>>> addredux
     "jest": "22.4.4",
     "react-test-renderer": "16.3.1"
   },
